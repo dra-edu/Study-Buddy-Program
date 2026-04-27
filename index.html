@@ -169,7 +169,7 @@
     background: var(--notice-bg);
     color: var(--notice-txt);
   }
-  .subj-option input { display: none; }
+  .subj-option input { position: absolute; opacity: 0; width: 0; height: 0; }
 
   .divider { height: 1px; background: var(--divider); margin: 20px 0; }
 
@@ -243,7 +243,7 @@
 <div class="hero">
   <p class="eyebrow">Dooplaya Rise Academy</p>
   <h1>Study Buddy <em>Program</em></h1>
-  <p>Connect. Learn. Rise Together.</p>
+
 </div>
 
 <div class="wrapper">
@@ -295,7 +295,6 @@
           <label class="field-label">Current Grade / Education Level <span class="req">*</span></label>
           <select name="grade_level" required>
             <option value="">— Select your level —</option>
-            <option>Grade 7</option>
             <option>Grade 8</option>
             <option>Grade 9</option>
             <option>Grade 10</option>
@@ -322,12 +321,12 @@
           <label class="field-label">Subjects you need help with <span class="req">*</span></label>
           <span class="hint">Select all that apply</span>
           <div class="subjects-grid" id="need-grid">
-            <label class="subj-option" onclick="toggleSubject(this,'need')"><input type="checkbox" name="need_help" value="Math">📐 Math</label>
-            <label class="subj-option" onclick="toggleSubject(this,'need')"><input type="checkbox" name="need_help" value="English">📖 English</label>
-            <label class="subj-option" onclick="toggleSubject(this,'need')"><input type="checkbox" name="need_help" value="Science">🔬 Science</label>
-            <label class="subj-option" onclick="toggleSubject(this,'need')"><input type="checkbox" name="need_help" value="Social Studies">🌍 Social Studies</label>
-            <label class="subj-option" onclick="toggleSubject(this,'need')"><input type="checkbox" name="need_help" value="Writing">✍️ Writing</label>
-            <label class="subj-option" onclick="toggleSubject(this,'need')"><input type="checkbox" name="need_help" value="Reading">📚 Reading</label>
+            <label class="subj-option"><input type="checkbox" name="need_help" value="Math">📐 Math</label>
+            <label class="subj-option"><input type="checkbox" name="need_help" value="English">📖 English</label>
+            <label class="subj-option"><input type="checkbox" name="need_help" value="Science">🔬 Science</label>
+            <label class="subj-option"><input type="checkbox" name="need_help" value="Social Studies">🌍 Social Studies</label>
+            <label class="subj-option"><input type="checkbox" name="need_help" value="Writing">✍️ Writing</label>
+            <label class="subj-option"><input type="checkbox" name="need_help" value="Reading">📚 Reading</label>
           </div>
         </div>
 
@@ -337,12 +336,12 @@
           <label class="field-label">Subjects you are strong in <span class="req">*</span></label>
           <span class="hint">Select all that apply</span>
           <div class="subjects-grid" id="strong-grid">
-            <label class="subj-option" onclick="toggleSubject(this,'strong')"><input type="checkbox" name="strong_in" value="Math">📐 Math</label>
-            <label class="subj-option" onclick="toggleSubject(this,'strong')"><input type="checkbox" name="strong_in" value="English">📖 English</label>
-            <label class="subj-option" onclick="toggleSubject(this,'strong')"><input type="checkbox" name="strong_in" value="Science">🔬 Science</label>
-            <label class="subj-option" onclick="toggleSubject(this,'strong')"><input type="checkbox" name="strong_in" value="Social Studies">🌍 Social Studies</label>
-            <label class="subj-option" onclick="toggleSubject(this,'strong')"><input type="checkbox" name="strong_in" value="Writing">✍️ Writing</label>
-            <label class="subj-option" onclick="toggleSubject(this,'strong')"><input type="checkbox" name="strong_in" value="Reading">📚 Reading</label>
+            <label class="subj-option"><input type="checkbox" name="strong_in" value="Math">📐 Math</label>
+            <label class="subj-option"><input type="checkbox" name="strong_in" value="English">📖 English</label>
+            <label class="subj-option"><input type="checkbox" name="strong_in" value="Science">🔬 Science</label>
+            <label class="subj-option"><input type="checkbox" name="strong_in" value="Social Studies">🌍 Social Studies</label>
+            <label class="subj-option"><input type="checkbox" name="strong_in" value="Writing">✍️ Writing</label>
+            <label class="subj-option"><input type="checkbox" name="strong_in" value="Reading">📚 Reading</label>
           </div>
         </div>
 
@@ -369,7 +368,8 @@
 
     <button type="submit" class="submit-btn">✓ &nbsp; Submit Registration</button>
     <p style="text-align:center; font-size:0.76rem; color:var(--muted); margin-top:12px;">
-      ယခု Program (SBP) ဟာ resources တွေလိုအပ်ချက်ရှိနေတဲ့ကျောင်းသား/သူတွေအတွက်ရည်ရွယ်ထားခြင်းဖြစ်ပြီး တက်ရောက်ပြီးပါကဝင်ခွင့်စာမေးပွဲအောင်မြင်မည့်အာမခံချက်မျိုးမပေးနိုင်ပါ။
+      ယခု Program (SBP) ဟာ resources တွေလိုအပ်ချက်ရှိနေတဲ့ကျောင်းသား/သူတွေအတွက်ရည်ရွယ်ထားခြင်းဖြစ်ပြီး တက်ရောက်ပြီးပါကဝင်ခွင့်စာမေးပွဲအောင်မြင်မည့်အာမခံချက်မျိုးမပေးနိုင်ပါ။<br><br>
+      အဆောင်နေလိုပါက မေလ(၃)ရက်နေ့အရောက်လာရပါမည်။
     </p>
 
   </form>
@@ -396,10 +396,12 @@
 </footer>
 
 <script>
-  function toggleSubject(el, group) {
-    el.classList.toggle('selected');
-    el.querySelector('input').checked = el.classList.contains('selected');
-  }
+  document.querySelectorAll('.subj-option').forEach(function(label) {
+    var cb = label.querySelector('input[type=checkbox]');
+    cb.addEventListener('change', function() {
+      label.classList.toggle('selected', cb.checked);
+    });
+  });
 
   document.getElementById('sbpForm').addEventListener('submit', async function(e) {
     e.preventDefault();
